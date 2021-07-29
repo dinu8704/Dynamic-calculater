@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dyanmic calculater</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <style>
+    .addclass{
+      border: 1px solid #4755b900;
+    padding: 10px 3rem;
+    background: magenta;
+    border-radius: 23px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    }
+    .addid2{
+      border: 1px solid #4755b900;
+    padding: 10px 3rem;
+    background: rgb(140, 241, 7);
+    border-radius: 23px;
+    color: rgb(0, 0, 0);
+    font-weight: 500;
+    cursor: pointer;
+    }
+    .addid2 a {
+    color: #000711;
+    text-decoration: none;
+    }
+    .userclass{
+      width: 40%;
+    background: #f7f7f7;
+    height: 3rem;
+    border-radius: 18px;
+    border: 1px solid black;
+    }
+    .screenclass{
+      margin-top: 3rem;
+    border: 1px solid black;
+    border-radius: 25px;
+    height: 3rem;
+    width: 24%;
+    color: white;
+    text-align: center;
+    font-weight: 700;
+    background: black;
+    }
+    .addedclass{
+      order: 1px solid green;
+    padding: 7px 18px;
+    border-radius: 50px;
+    color: white;
+    background: #04b504;
+    margin: 3px;
+    font-weight: 700;
+    }
+.calcy{
+  padding: 7px 18px;
+    border-radius: 12px;
+    color: white;
+    background: #485748;
+    margin: 3px;
+    font-weight: 700;
+}
+  </style>
+  <div class="container ">
+    <div class="inner-section mt-5">
+      <div class="text-center">
+      <input type="text" name="user" id="userid" class="userclass" autocomplete="off" onfocus="this.value=''"
+        required /><br><br>
+      <div class="addtobtn">
+        <span class="addclass" id="addid" onclick="myFunction(); ">
+          Add
+        </span>
+      </div>
+    </div><br>
+      <div class="text-center ">
+        <input type="text" name="screen" id="screen" class="screenclass" disabled /><br><br>
+        <div class="btv">
+          <div class="showcl" id="show"></div>
+      <br>
+
+          <button class="calcy" >+</button>
+          <button class="calcy" style="padding: 7px 50px;">=</button>
+          <button class="calcy" >AC</button><br>
+          <button class="calcy" >C</button>
+          <button class="calcy" >-</button>
+          <button class="calcy" >X</button>
+          <button class="calcy" >%</button>
+          <button class="calcy" >/</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br><hr><br>
+  <div class="text-center">
+  <h3>
+    Simple Calculater
+  </h3><br>
+  <span class="addid2"> <a href="../calculater/calculate.html">Calculater</a> </span>
+</div>
+
+  <script type="text/javascript">
+    function myFunction() {
+      let checking = document.getElementById("userid").value;
+      if (checking == "") {
+        console.log("if condition fire");
+      } else {
+        console.log("else condition fire");
+        var arrayMake = [];
+        console.log(Array.isArray(arrayMake));
+        console.log(arrayMake.join());
+
+        let showDisplay = arrayMake.push(
+          document.getElementById("userid").value
+        );
+        var s = arrayMake.toString().split(",");
+        console.log(s);
+        for (var a in s) {
+          var variable = s[a];
+          let showd = document.getElementById("show");
+          var showup = document.createElement("button");
+          showup.className = "addedclass";
+          var btn = (showup.value = s[a]);
+          showup.innerHTML = btn;
+          console.log(s[a]);
+          // document.body.appendChild(showup);
+          let aded = document.getElementById('show').appendChild(showup);
+
+          // document.getElementById('addid').disabled = true;
+          // console.log(variable);
+
+          let screens = document.getElementById("screen");
+          var buttons = document.querySelectorAll("button");
+          let screenValue = "";
+          for (item of buttons) {
+            item.addEventListener("click", (e) => {
+              buttonText = e.target.innerText;
+              console.log(buttonText);
+              if (buttonText == "X") {
+                buttonText = "*";
+                screenValue += buttonText;
+                screens.value = screenValue;
+                console.log(buttonText);
+              } else if (buttonText == "AC") {
+                screenValue = "";
+                screens.value = screenValue;
+              } else if (buttonText == "=") {
+                // screens.value = eval(screenValue);
+                let x = screens.value;
+                let y = eval(x);
+                screenValue = screens.value = y;
+
+              } else if (buttonText == "C") {
+                var number = screens.value;
+                var len = number.length - 1;
+                var newnumber = number.substring(0, len);
+                screens.value = newnumber;
+                screenValue = screens.value;
+              } else {
+                screenValue += buttonText;
+                screens.value = screenValue;
+              }
+            });
+          }
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
